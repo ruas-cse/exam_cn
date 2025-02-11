@@ -1,0 +1,72 @@
+1d parity:
+#include <stdio.h>
+
+int main() {
+    int arr[5], sum = 0;
+    printf("Enter 5 binary values (0 or 1):\n");
+
+    for (int i = 0; i < 5; i++) {  // Loop from 0 to 4
+        printf("Enter arr[%d]: ", i);
+        scanf("%d", &arr[i]);
+
+        if (arr[i] != 0 && arr[i] != 1) {
+            printf("Invalid input! Only 0 or 1 is allowed.\n");
+            return 1;
+        }
+
+        sum += arr[i];
+    }
+
+    int parity_bit = (sum % 2 == 0) ? 0 : 1;
+
+    printf("\nInput bits: ");
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    printf("\nNumber of 1's: %d", sum);
+    printf("\nParity bit (even parity): %d\n", parity_bit);
+
+    return 0;
+}
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+2D
+
+#include <stdio.h>
+
+#define ROWS 2
+#define COLS 2
+
+int main() {
+    int arr[ROWS][COLS], row_parity[ROWS] = {0}, col_parity[COLS] = {0};
+
+    printf("Enter 5 rows of 7-bit binary values (0 or 1):\n");
+    for (int i = 0; i < ROWS; i++) {
+        printf("Enter row %d: ", i + 1);
+        for (int j = 0; j < COLS; j++) {
+            scanf("%d", &arr[i][j]);
+            if (arr[i][j] != 0 && arr[i][j] != 1) {
+                printf("Invalid input! Only 0 or 1 is allowed.\n");
+                return 1;
+            }
+            row_parity[i] ^= arr[i][j]; // XOR for row parity
+            col_parity[j] ^= arr[i][j]; // XOR for column parity
+        }
+    }
+
+    printf("\nInput matrix with row parity:\n");
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) printf("%d ", arr[i][j]);
+        printf("| %d\n", row_parity[i]);
+    }
+
+    printf("\nColumn parity bits:\n");
+    for (int j = 0; j < COLS; j++) printf("%d ", col_parity[j]);
+    printf("\n");
+
+    return 0;
+}
